@@ -7,19 +7,23 @@ class StackUsingLinkedList<T>{
     }
 
     public T pop(){
-        this.isEmpty();
+        this.throwIfEmpty();
         return list.removeFirst();
     }
 
     public T peek(){
-        this.isEmpty();
+        this.throwIfEmpty();
         return list.getFirst();
     }
     public int size(){
         return list.size();
     }
-    private void isEmpty(){
-        if(list.isEmpty()) throw new IllegalStateException("Stack is Empty");
+
+    public boolean isEmpty(){
+        return list.isEmpty();
+    }
+    private void throwIfEmpty(){
+        if(this.isEmpty()) throw new IllegalStateException("Stack is Empty");
     }
 }   
 
@@ -31,23 +35,41 @@ class QueueUsingLinkedList<T>{
     }
 
     public T dequeue(){
-        this.isEmpty();
+        this.throwIfEmpty();
         return list.removeFirst();
     }
 
     public T peek(){
-        this.isEmpty();
+        this.throwIfEmpty();
         return list.getFirst();
     }
 
-    private void isEmpty(){
-        if(list.isEmpty()) throw new IllegalStateException("Queue is Empty");
+    public boolean isEmpty(){
+        return list.isEmpty();
     }
+    private void throwIfEmpty(){
+        if(this.isEmpty()) throw new IllegalStateException("Stack is Empty");
+    }
+
 }
 
 
 public class Main {
     public static void main(String[] args) {
-        
+        StackUsingLinkedList<Integer> stack = new StackUsingLinkedList<Integer>();
+        stack.push(1);
+        stack.push(10);
+        stack.push(100);
+        while(!stack.isEmpty()){
+            System.out.println("Pop: " + stack.pop());
+        }
+        System.out.println("");
+        QueueUsingLinkedList<String> queue = new QueueUsingLinkedList<String>();
+        queue.enqueue("Item One");
+        queue.enqueue("Item Two");
+        queue.enqueue("Item Three");
+        while(!queue.isEmpty()){
+            System.out.println("Dequeue: "+ queue.dequeue());
+        }
     }
 }
