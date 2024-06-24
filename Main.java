@@ -5,12 +5,24 @@ class StackUsingLinkedList<T>{
     public void push(T item){
         list.add(item);
     }
+
     public T pop(){
-        if(list.isEmpty()){
-            throw new IllegalStateException("Stack is Empty");
-        } return list.removeFirst();
+        this.isEmpty();
+        return list.removeFirst();
     }
-}
+
+    public T peek(){
+        this.isEmpty();
+        return list.getFirst();
+    }
+    public int size(){
+        return list.size();
+    }
+    private void isEmpty(){
+        if(list.isEmpty()) throw new IllegalStateException("Stack is Empty");
+    }
+}   
+
 
 public class Main {
     public static void main(String[] args) {
