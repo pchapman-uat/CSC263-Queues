@@ -3,7 +3,7 @@ import java.util.LinkedList;
 class StackUsingLinkedList<T>{
     private LinkedList<T> list = new LinkedList<>();
     public void push(T item){
-        list.add(item);
+        list.addFirst(item);
     }
 
     public T pop(){
