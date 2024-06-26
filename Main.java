@@ -1,26 +1,27 @@
 import java.util.LinkedList;
+import java.util.Scanner;
 
 class StackUsingLinkedList<T>{
     private LinkedList<T> list = new LinkedList<>();
     public void push(T item){
-        list.addFirst(item);
+        this.list.addFirst(item);
     }
 
     public T pop(){
         this.throwIfEmpty();
-        return list.removeFirst();
+        return this.list.removeFirst();
     }
 
     public T peek(){
         this.throwIfEmpty();
-        return list.getFirst();
+        return this.list.getFirst();
     }
     public int size(){
-        return list.size();
+        return this.list.size();
     }
 
     public boolean isEmpty(){
-        return list.isEmpty();
+        return this.list.isEmpty();
     }
     private void throwIfEmpty(){
         if(this.isEmpty()) throw new IllegalStateException("Stack is Empty");
@@ -31,21 +32,21 @@ class QueueUsingLinkedList<T>{
     private LinkedList<T> list = new LinkedList<>();
 
     public void enqueue(T item){
-        list.addLast(item);
+        this.list.addLast(item);
     }
 
     public T dequeue(){
         this.throwIfEmpty();
-        return list.removeFirst();
+        return this.list.removeFirst();
     }
 
     public T peek(){
         this.throwIfEmpty();
-        return list.getFirst();
+        return this.list.getFirst();
     }
 
     public boolean isEmpty(){
-        return list.isEmpty();
+        return this.list.isEmpty();
     }
     private void throwIfEmpty(){
         if(this.isEmpty()) throw new IllegalStateException("Stack is Empty");
