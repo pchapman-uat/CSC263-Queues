@@ -1,55 +1,66 @@
 import java.util.LinkedList;
-import java.util.Scanner;
 
-class StackUsingLinkedList<T>{
-    private LinkedList<T> list = new LinkedList<>();
-    public void push(T item){
-        this.list.addFirst(item);
-    }
-
-    public T pop(){
-        this.throwIfEmpty();
-        return this.list.removeFirst();
-    }
-
-    public T peek(){
-        this.throwIfEmpty();
-        return this.list.getFirst();
-    }
+abstract class BaseList<T>{
+    public LinkedList<T> list = new LinkedList<>();
+    public abstract void add(T item);
+    public abstract T remove();
     public int size(){
         return this.list.size();
     }
-
+    public T peek(){
+        return this.list.getFirst();
+    }
     public boolean isEmpty(){
         return this.list.isEmpty();
     }
-    private void throwIfEmpty(){
+    public void throwIfEmpty(){
         if(this.isEmpty()) throw new IllegalStateException("Stack is Empty");
     }
-}   
-
-class QueueUsingLinkedList<T>{
-    private LinkedList<T> list = new LinkedList<>();
-
-    public void enqueue(T item){
-        this.list.addLast(item);
+    public void removeAll(String prefix){
+        while(!this.list.isEmpty()) System.out.println(prefix+": "+this.remove());
+    }
+}
+class  StackUsingLinkedList<T> extends BaseList<T>{
+    // Alias for base functions
+    public void push(T item){
+        this.add(item);
+    }
+    public T pop(){
+        return this.remove();
     }
 
-    public T dequeue(){
+    // base List is abstract, thuse these functions must be replaced
+    @Override
+    public void add(T item) {
+        this.list.addFirst(item);
+    }
+
+    @Override
+    public T remove() {
         this.throwIfEmpty();
         return this.list.removeFirst();
     }
+}   
 
-    public T peek(){
+class QueueUsingLinkedList<T> extends BaseList<T>{
+    public void enqueue(T item){
+        this.add(item);
+    }
+
+    public T dequeue(){
+        return this.remove();
+    }
+
+
+    @Override
+    public void add(T item) {
+        this.list.addLast(item);
+    }
+
+    @Override
+    public T remove() {
         this.throwIfEmpty();
-        return this.list.getFirst();
-    }
-
-    public boolean isEmpty(){
-        return this.list.isEmpty();
-    }
-    private void throwIfEmpty(){
-        if(this.isEmpty()) throw new IllegalStateException("Stack is Empty");
+        return this.list.removeFirst();
     }
 
 }
@@ -61,16 +72,12 @@ public class Main {
         stack.push(1);
         stack.push(10);
         stack.push(100);
-        while(!stack.isEmpty()){
-            System.out.println("Pop: " + stack.pop());
-        }
+        stack.removeAll("Pop");
         System.out.println("");
         QueueUsingLinkedList<String> queue = new QueueUsingLinkedList<String>();
         queue.enqueue("Item One");
         queue.enqueue("Item Two");
         queue.enqueue("Item Three");
-        while(!queue.isEmpty()){
-            System.out.println("Dequeue: "+ queue.dequeue());
-        }
+        queue.removeAll("Dequeue");
     }
 }
