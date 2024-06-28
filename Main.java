@@ -4,21 +4,18 @@ import java.util.Scanner;
 abstract class BaseList<T>{
     public LinkedList<T> list = new LinkedList<>();
     public abstract void add(T item);
-    public abstract T remove();
+    public T remove() {
+        if(this.list.isEmpty()) return null;
+        return this.list.removeFirst();
+    }
     public int size(){
         return this.list.size();
     }
-    public T peek(){
+    public T first(){
         return this.list.getFirst();
     }
     public boolean isEmpty(){
         return this.list.isEmpty();
-    }
-    public void throwIfEmpty(){
-        if(this.isEmpty()) throw new IllegalStateException("Stack is Empty");
-    }
-    public void removeAll(String prefix){
-        while(!this.list.isEmpty()) System.out.println(prefix+": "+this.remove());
     }
 }
 class  StackUsingLinkedList<T> extends BaseList<T>{
@@ -29,17 +26,13 @@ class  StackUsingLinkedList<T> extends BaseList<T>{
     public T pop(){
         return this.remove();
     }
-
+    public T top(){
+        return this.first();
+    }
     // base List is abstract, thuse these functions must be replaced
     @Override
     public void add(T item) {
         this.list.addFirst(item);
-    }
-
-    @Override
-    public T remove() {
-        this.throwIfEmpty();
-        return this.list.removeFirst();
     }
 }   
 
@@ -51,19 +44,10 @@ class QueueUsingLinkedList<T> extends BaseList<T>{
     public T dequeue(){
         return this.remove();
     }
-
-
     @Override
     public void add(T item) {
         this.list.addLast(item);
     }
-
-    @Override
-    public T remove() {
-        this.throwIfEmpty();
-        return this.list.removeFirst();
-    }
-
 }
 
 
@@ -71,16 +55,36 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         StackUsingLinkedList<Integer> stack = new StackUsingLinkedList<Integer>();
-        stack.push(1);
-        stack.push(10);
-        stack.push(100);
-        stack.removeAll("Pop");
+        stack.push(5); 
+        stack.push(3); 
+        stack.size();
+        stack.pop();
+        stack.isEmpty();
+        stack.pop();
+        stack.isEmpty();
+        stack.pop();
+        stack.push(7); 
+        stack.push(9); 
+        stack.top();
+        stack.push(4); 
+        stack.size();
+        stack.pop();
+        stack.push(6); 
+        stack.push(8); 
+        stack.pop();;
         System.out.println("");
-        QueueUsingLinkedList<String> queue = new QueueUsingLinkedList<String>();
-        queue.enqueue("Item One");
-        queue.enqueue("Item Two");
-        queue.enqueue("Item Three");
-        queue.removeAll("Dequeue");
+        // Queue
+        QueueUsingLinkedList<Integer> queue = new QueueUsingLinkedList<Integer>();
+        queue.enqueue(5);
+        queue.enqueue(3);
+        queue.size();
+        queue.dequeue();
+        queue.isEmpty();
+        queue.dequeue();
+        queue.enqueue(7);
+        queue.enqueue(9);
+        queue.first();
+        queue.enqueue(4); 
         System.out.println("Would you like to enter your own items? (y/n)");
         if(scanner.nextLine().equals("y")) userInput();
         else System.out.println("Goodbye");
